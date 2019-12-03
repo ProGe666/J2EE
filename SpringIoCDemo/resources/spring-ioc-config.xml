@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    
+    <!-- The spring bean is a singleton, only 1 instance can be created from this bean, in this container -->
+    <!-- The class associated with the bean may not be a singleton -->
+    
+    <!-- The spring beans will be created while bean container is loaded -->
+    <!-- Default constructor will be called -->
+    <bean id="ed" class="com.mercury.daos.EmpDao" />
+    
+    <!-- Value injection by spring -->
+    <!-- 1. constructor injection -->
+    <!-- 2. setter injection -->
+    <!-- 3. field injection (use reflection) -->
+    
+    <bean id="ed2" class="com.mercury.daos.EmpDao">
+    	<constructor-arg index="0" value="5" />
+    	<constructor-arg index="1" value="10" />
+    </bean>
+    
+    <bean id="od" class="com.mercury.daos.OfficeDao">
+    	<property name="x" value="4"></property>
+    	<property name="y" value="209"></property>
+    </bean>
+    
+    <!-- value is for hard code value -->
+    <!-- ref is for reference to another bean instance -->
+    <bean id="hs" class="com.mercury.services.HrService">
+    	<property name="ed" ref="ed"></property>
+    </bean>
+    
+    <!-- Bean scopes -->
+    <!-- 1. singleton (By default) -->
+    <!-- 2. prototype -->
+    <!-- 3. request -->
+    <!-- 4. session -->
+    <!-- 5. global session (Removed since Spring 5) -->
+    
+    <!-- singleton : get the same instance each time when required -->
+    <!-- prototype : get a new instance each time when required, by calling the constructor -->
+    <bean id="fd" class="com.mercury.daos.FacilityDao" scope="prototype">
+    </bean>
+    
+    
+</beans>
